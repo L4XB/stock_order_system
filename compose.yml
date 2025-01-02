@@ -1,0 +1,37 @@
+services:
+  # Order Service
+  app:
+    build:
+      context: ./order_service
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=host.docker.internal
+      - DB_USER=root
+      - DB_PASSWORD=Jochen
+      - DB_NAME=stockprices
+    depends_on:
+      - confirmation_service
+    networks:
+      - my_network
+
+  # Confirmation Service
+  confirmation_service:
+    build:
+      context: ./confirmation_service
+      dockerfile: Dockerfile.confirmation
+    ports:
+      - "3005:3005"
+      - "50051:50051"
+    networks:
+      - my_network
+
+# Volumes für persistente Daten
+volumes:
+  db_data:
+
+
+networks:
+  my_network:
+    driver: bridge
