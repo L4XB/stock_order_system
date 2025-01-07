@@ -64,7 +64,7 @@ app.post("/orders", async (req, res) => {
             [id, name, isin, amount, price, state])
             .then(result => {
                 res.status(201).send({ statusCode: "201", statusText: "Created order successfully", newOrder });
-                console.info("Created Order Successfully");
+                console.log("Created Order Successfully");
             })
             .catch(error => {
                 console.error("Error Creating Order: ", error);
